@@ -1,24 +1,83 @@
 <template>
   <div class="toolbar">
     <div class="toolbar__actions">
-      <button class="toolbar__button brush"></button>
-      <button class="toolbar__button circle"></button>
-      <button class="toolbar__button eraser"></button>
-      <button class="toolbar__button rect"></button>
-      <button class="toolbar__button line"></button>
-      <input type="color" class="toolbar__button">
+      <button
+        class="toolbar__button brush"
+        @click="setTool(new Brush(canvas))"
+      ></button>
+      <button
+        class="toolbar__button circle"
+        @click="setTool(new Circle(canvas))"
+      ></button>
+      <button
+        class="toolbar__button eraser"
+        @click="setTool(new Eraser(canvas))"
+      ></button>
+      <button
+        class="toolbar__button rect"
+        @click="setTool(new Rect(canvas))"
+      ></button>
+      <button
+        class="toolbar__button line"
+        @click="setTool(new Line(canvas))"
+      ></button>
+      <input
+        type="color"
+        class="toolbar__button"
+        v-model="color"
+      >
     </div>
     <div class="toolbar__navigation">
-      <button class="toolbar__button undo"></button>
-      <button class="toolbar__button redo"></button>
-      <button class="toolbar__button save"></button>
+      <button
+        class="toolbar__button undo"></button>
+      <button
+        class="toolbar__button redo"></button>
+      <button
+        class="toolbar__button save"></button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
+import Brush from '~/use/Brush'
+import Rect from '~/use/Rect'
+import Circle from '~/use/Circle'
+import Line from '~/use/Line'
+import Eraser from '~/use/Eraser'
 export default {
-  name: 'ToolBar'
+  name: 'ToolBar',
+  data () {
+    return {
+      color: null,
+      Brush,
+      Rect,
+      Circle,
+      Line,
+      Eraser
+    }
+  },
+  watch: {
+    color (val) {
+      console.log(val)
+      this.setStrokeColor(val)
+      this.setFillColor(val)
+    }
+  },
+  computed: {
+    ...mapGetters({
+      canvas: 'canvasState/canvas'
+    })
+  },
+  methods: {
+    ...mapMutations({
+      setCanvas: 'canvasState/setCanvas',
+      setTool: 'toolState/setTool',
+      setStrokeColor: 'toolState/setStrokeColor',
+      setFillColor: 'toolState/setFillColor'
+    })
+  }
 }
 </script>
 

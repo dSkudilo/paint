@@ -3,12 +3,13 @@ export const state = () => ({
 })
 
 export const getters = {
-
+  canvas (state) {
+    return state.canvas
+  }
 }
 
 export const mutations = {
   setCanvas (state, canvas) {
-    console.log('dadada', canvas)
     state.canvas = canvas
   }
 }

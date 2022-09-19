@@ -1,7 +1,7 @@
 <template>
   <div class="canvas">
-    <!-- стили тут тк канванс плохо высчитывает из css -->
     <canvas
+      @mousedown="mouseDownHandler"
       ref="canvas"
       width="600"
       height="600"
@@ -19,9 +19,13 @@ export default {
     this.setTool(new Brush(this.$refs.canvas))
   },
   methods: {
+    mouseDownHandler () {
+      this.pushToUndo(this.$refs.canvas.toDataURL())
+    },
     ...mapMutations({
       setCanvas: 'canvasState/setCanvas',
-      setTool: 'toolState/setTool'
+      setTool: 'toolState/setTool',
+      pushToUndo: 'canvasState/pushToUndo'
     })
   }
 }

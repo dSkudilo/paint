@@ -4,23 +4,23 @@
       <button
         class="toolbar__button brush"
         @click="setTool(new Brush(canvas))"
-      ></button>
+      />
       <button
         class="toolbar__button circle"
         @click="setTool(new Circle(canvas))"
-      ></button>
+      />
       <button
         class="toolbar__button eraser"
         @click="setTool(new Eraser(canvas))"
-      ></button>
+      />
       <button
         class="toolbar__button rect"
         @click="setTool(new Rect(canvas))"
-      ></button>
+      />
       <button
         class="toolbar__button line"
         @click="setTool(new Line(canvas))"
-      ></button>
+      />
       <input
         type="color"
         class="toolbar__button"
@@ -29,11 +29,14 @@
     </div>
     <div class="toolbar__navigation">
       <button
-        class="toolbar__button undo"></button>
+        class="toolbar__button undo"
+        @click="undo"
+      />
       <button
-        class="toolbar__button redo"></button>
-      <button
-        class="toolbar__button save"></button>
+        class="toolbar__button redo"
+        @click="redo"
+      />
+      <button class="toolbar__button save" />
     </div>
   </div>
 </template>
@@ -60,22 +63,25 @@ export default {
   },
   watch: {
     color (val) {
-      console.log(val)
       this.setStrokeColor(val)
       this.setFillColor(val)
     }
   },
+
   computed: {
     ...mapGetters({
       canvas: 'canvasState/canvas'
     })
   },
+
   methods: {
     ...mapMutations({
       setCanvas: 'canvasState/setCanvas',
       setTool: 'toolState/setTool',
       setStrokeColor: 'toolState/setStrokeColor',
-      setFillColor: 'toolState/setFillColor'
+      setFillColor: 'toolState/setFillColor',
+      undo: 'canvasState/undo',
+      redo: 'canvasState/redo'
     })
   }
 }

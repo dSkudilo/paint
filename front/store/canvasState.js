@@ -1,18 +1,27 @@
 export const state = () => ({
   canvas: null,
   undoList: [],
-  redoList: []
+  redoList: [],
+  username: ''
 })
 
 export const getters = {
   canvas (state) {
     return state.canvas
+  },
+
+  username (state) {
+    return state.username
   }
 }
 
 export const mutations = {
   setCanvas (state, canvas) {
     state.canvas = canvas
+  },
+
+  setUsername (state, username) {
+    state.username = username
   },
 
   pushToUndo (state, action) {
